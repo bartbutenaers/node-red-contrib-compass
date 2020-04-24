@@ -1,0 +1,108 @@
+<!--
+  Copyright 2020, Bart Butenaers
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<script type="text/javascript">
+    RED.nodes.registerType('cardinal-direction',{
+        category: 'function',
+        color: '#a6bbcf',
+        defaults: {
+            subset: {value:"full"},
+            language: {value:"en"},
+            inputField: {value:"payload", required:true},
+            outputField: {value:"payload", required:true},
+            name: {value:""}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "font-awesome/fa-compass",
+        label: function() {
+            return this.name || "Cardinal direction";
+        },
+        oneditprepare: function() { 
+            var node = this;
+        
+            // Show the inputField value in a typedinput element (dropdown with only 'msg')
+            var value = $("#node-input-inputField").val() || '';
+            $("#node-input-typed-inputField").typedInput({types:['msg']});
+            $("#node-input-typed-inputField").typedInput('type','msg');
+            $("#node-input-typed-inputField").typedInput('value',value);
+            
+            // Show the outputField value in a typedinput element (dropdown with only 'msg')
+            var value = $("#node-input-outputField").val() || '';
+            $("#node-input-typed-outputField").typedInput({types:['msg']});
+            $("#node-input-typed-outputField").typedInput('type','msg');
+            $("#node-input-typed-outputField").typedInput('value',value);
+        },
+        oneditsave: function() {
+            // Copy the inputField value from the typedinput element to the inputField element
+            var value = $("#node-input-typed-inputField").typedInput('value');
+            $("#node-input-inputField").val(value);
+            
+            // Copy the outputField value from the typedinput element to the outputField element
+            var value = $("#node-input-typed-outputField").typedInput('value');
+            $("#node-input-outputField").val(value);
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="cardinal-direction">
+    <div class="form-row">
+        <label for="node-input-subset"><i class="fa fa-filter"></i> Subset</label>
+        <select id="node-input-subset">
+            <option value="full">Full</option>
+            <option value="basic">Basic</option>
+            <option value="ordinal">Ordinal</option>
+            <option value="inter">Intercardinal</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-language"><i class="fa fa-sign-language"></i> Language</label>
+        <select id="node-input-language">
+            <option value="en">English</option>
+            <option value="nl">Nederlands</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-typed-inputField"><i class="fa fa-list"></i> Input field</label>
+        <input id="node-input-typed-inputField" type="text" style="width: 70%">
+        <input id="node-input-inputField" type="hidden">
+    </div>
+    <div class="form-row">
+        <label for="node-input-typed-outputField"><i class="fa fa-list"></i> Output field</label>
+        <input id="node-input-typed-outputField" type="text" style="width: 70%">
+        <input id="node-input-outputField" type="hidden">
+    </div>   
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="cardinal-direction">
+    <p>A Node-RED node to convert a degree (0 - 360) to a correlated cardinal direction.</p>
+    <p><strong>Subset:</strong><br/>
+    A subset can be used to fine tune the result, e.g. to round to the nearest accepted cardinal direction.
+        <ul>
+            <li><i>Full:</i> All possible cardinal directions can be returned.</li>
+            <li><i>Basic:</i> Restrict the possible cardinals to N, E, S, W.</li>
+            <li><i>Ordinal:</i> Extends the 'Basic' option to include NE, SE, SW, NW.</li>
+            <li><i>Intercardinal:</i> Extends the 'Ordinal' to include NNE, ENE, ESE, SSE, SSW, WSW, WNW, NNW.</li>
+        </ul>
+    </p>
+    <p><strong>Language:</strong><br/>
+    The language which is required in the output message.</p>  
+    <p><strong>Input field:</strong><br/>
+    The field name in the input message, that will contain the value that needs to be converted.  By default the input value will be located inside the <code>msg.payload</code> field.</p> 
+    <p><strong>Output field:</strong><br/>
+    The field name in the output message, that will contain the converted value.  By default the output value will be located inside the <code>msg.payload</code> field.</p>
+</script>
+
