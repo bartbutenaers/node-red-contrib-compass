@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "A Node-RED node to convert a degree (0 - 360) to a correlated cardinal direction",
     "dependencies": {
+        "cardinal-direction" : "^1.0.0"
     },
     "author": {
         "name": "Bart Butenaers"
