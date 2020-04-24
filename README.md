@@ -25,23 +25,62 @@ The following example flow demonstrates how to convert a degree into a cardinal 
    description: "Noth-northeast"
    ```
 
-The following example flow
 ## Node properties
 
 ### Subset
 A subset can be used to fine tune the result, e.g. to round to the nearest accepted cardinal direction.
 
 The following subset filters can be selected:
-+ ***Full:*** All possible cardinal directions can be returned.
-+ ***Basic:*** Restrict the possible cardinals to N, E, S, W.
++ ***Full:*** All possible cardinal directions can be returned (see extended list below).
++ ***Basic:*** Restrict the possible cardinals to the main compass quadrant N, E, S, W.
 + ***Ordinal:*** Extends the 'Basic' option to include NE, SE, SW, NW.
 + ***Intercardinal:*** Extends the 'Ordinal' to include NNE, ENE, ESE, SSE, SSW, WSW, WNW, NNW.
 
 ### Language
 The language which is required in the output message.
 
-Remark: when your language is not supported yet by this node, please 
-    <p><strong>Input field:</strong><br/>
-    The field name in the input message, that will contain the value that needs to be converted.  By default the input value will be located inside the <code>msg.payload</code> field.</p> 
-    <p><strong>Output field:</strong><br/>
-    The field name in the output message, that will contain the converted value.  By default the output value will be located inside the <code>msg.payload</code> field.</p>
+Remark: when your language is not supported yet and you want to contribute by creating a translation, please have a look at the files in the [languages](https://github.com/bartbutenaers/node-red-contrib-cardinal-direction/blob/master/languages/en.js) folder and share your translation with me.
+
+### Input field
+The field name in the input message, that will contain the value that needs to be converted.  By default the input value will be located inside the ```msg.payload``` field.
+
+### Output field
+The field name in the output message, that will contain the converted value.  By default the output value will be located inside the ```msg.payload``` field.
+
+## Available cardinal directions
+There are 32 cardinal directions available on a compass:
+
+| Name | Legend             |
+| ---- | ------------------ |
+| N    | North              |
+| NbE  | North by East      |
+| NNE  | Noth-northeast     |
+| NEbN | Northeast by North |
+| NE   | Northeast          |
+| NEbE | Northeast by East  |
+| ENE  | East-northeast     |
+| EbN  | East by North      |
+| E    | East               |
+| EbS  | East by South      |
+| ESE  | East-southeast     |
+| SEbE | Southeast by East  |
+| SE   | Southeast          |
+| SEbS | Southeast By South |
+| SSE  | South-southeast    |
+| SbE  | South be East      |
+| S    | South              |
+| SbW  | South by West      |
+| SSW  | South-southwest    |
+| SWbS | Southwest by South |
+| SW   | Southwest          |
+| SWbW | Southwest by West  |
+| WSW  | West-southwest     |
+| WbS  | West by South      |
+| W    | West               |
+| Wbs  | West by North      |
+| WNW  | West-northwest     |
+| NWbW | Northwest by West  |
+| NW   | Northwest          |
+| NWbN | Northwest by North |
+| NNW  | North-northwest    |
+| NbW  | North by West      |
