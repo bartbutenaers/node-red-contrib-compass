@@ -1,0 +1,31 @@
+{
+    "name": "node-red-contrib-cardinal-direction",
+    "version": "1.0.0",
+    "description": "A Node-RED node to convert a degree (0 - 360) to a correlated cardinal direction",
+    "dependencies": {
+    },
+    "author": {
+        "name": "Bart Butenaers"
+    },
+    "license": "Apache-2.0",
+    "keywords": [
+        "node-red",
+        "compass",
+        "cardinal",
+        "direction",
+        "degree"
+    ],
+    "bugs": {
+        "url": "https://github.com/bartbutenaers/node-red-contrib-cardinal-direction/issues"
+    },
+    "homepage": "https://github.com/bartbutenaers/node-red-contrib-cardinal-direction",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/bartbutenaers/node-red-contrib-cardinal-direction.git"
+    },
+    "node-red": {
+        "nodes": {
+            "cardinal-direction": "cardinal_direction.js"
+        }
+    }
+}
