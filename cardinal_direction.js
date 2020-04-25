@@ -19,11 +19,14 @@
 
     function CompassDirectionNode(config) {
         RED.nodes.createNode(this,config);
+        this.direction   = config.direction;
         this.language    = config.language;
         this.inputField  = config.inputField;
         this.outputField = config.outputField;
         this.textMap     = new Map();
-        
+        this.cardinals   = ["N","NbE","NNE","NEbN","NE","NEbE","ENE","EbN","E","EbS","ESE","SEbE","SE","SEbS","SSE","SbE","S",
+                            "SbW","SSW","SWbS","SW","SWbW","WSW","WbS","W","Wbs","WNW","NWbW","NW","NWbN","NNW","NbW"];
+                            
         var node = this;
         
         // Convert the specified subset to the corresponding enum value
@@ -51,6 +54,7 @@
 
         node.on("input", function(msg) {
             var inputValue;
+            var outputValue;
             
             try {
                 // Get the input value from the specified message field
@@ -61,30 +65,41 @@
                 return;
             }
             
-            if (isNaN(inputValue)) {
-                node.error("The value in msg." + node.inputField + " should be a number");
-                return;
-            }
-            
-            inputValue = parseInt(inputValue);
-            
-            if (inputValue < 0 || inputValue > 360) {
-                node.error("The value in msg." + node.inputField + " should be a number between 0 and 360");
-                return;
-            }
-            
-            // Calculate the cardinal direction as an abbreviation (e.g. N)
-            var cardinalDirection = Compass.cardinalFromDegree(inputValue, node.subset);
-            
-            // Compose the output field in the specified language
-            var result = {
-                direction: node.translations.abbreviations[cardinalDirection],
-                description: node.translations.descriptions[cardinalDirection]
+            switch(node.direction) {
+                case "toCardinal": // Degree to Cardinal           
+                    if (isNaN(inputValue)) {
+                        node.error("The value in msg." + node.inputField + " should be a number");
+                        return;
+                    }
+                    
+                    inputValue = parseInt(inputValue);
+                    
+                    if (inputValue < 0 || inputValue > 360) {
+                        node.error("The value in msg." + node.inputField + " should be a number between 0 and 360");
+                        return;
+                    }
+                    
+                    // Calculate the cardinal direction as an abbreviation (e.g. N)
+                    var cardinalDirection = Compass.cardinalFromDegree(inputValue, node.subset);
+                    
+                    // Compose the output field in the specified language
+                    outputValue = {
+                        direction: node.translations.abbreviations[cardinalDirection],
+                        description: node.translations.descriptions[cardinalDirection]
+                    }
+                    break;
+                case "toDegree": // Cardinal to degree
+                    if (!node.cardinals.includes(inputValue)) {
+                        node.error("The value in msg." + node.inputField + " should be a valid cardinal.  See help of node-red-contrib-cardinal-direction");
+                        return;
+                    }
+                    
+                    outputValue = Compass.degreeFromCardinal(inputValue);
             }
             
             try {
                 // Set the converted value in the specified message field
-                RED.util.setMessageProperty(msg, node.outputField, result, true);
+                RED.util.setMessageProperty(msg, node.outputField, outputValue, true);
             } catch(err) {
                 node.error("Error setting value in msg." + node.outputField + " : " + err.message);
             }
