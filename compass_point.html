@@ -15,7 +15,7 @@
         category: 'function',
         color: '#a6bbcf',
         defaults: {
-            direction: {value:"toCardinal"},
+            direction: {value:"toCompass"},
             subset: {value:"secondary"},
             language: {value:"en"},
             inputField: {value:"payload", required:true},
@@ -129,11 +129,11 @@
     The direction of the conversion:
         <ul>
             <li><i>Degree to compass point:</i> The input should be a number (between 0 and 360) and the output will be a compass point.</li>
-            <li><i>Compass point to degree:</i> The input should be a compass point, and the output will be a degree.  See the table of all allowed compass points on the <a target="_blank" href="https://github.com/bartbutenaers/node-red-contrib-cardinal-direction">readme page</a>.</li>
+            <li><i>Compass point to degree:</i> The input should be a compass point, and the output will be a degree.  See the table of all allowed compass points on the <a target="_blank" href="https://github.com/bartbutenaers/node-red-contrib-compass">readme page</a>.</li>
         </ul>
     </p>
     <p><strong>Subset:</strong><br/>
-    A subset can be used to fine tune the result, in case the direction is "degree to cardinal"
+    A subset can be used to fine tune the result, in case the direction is "degree to compass point"
     For example to round to the nearest accepted cardinal direction.
         <ul>
             <li><i>Cardinal (4):</i> Restrict the possible cardinals to N, E, S, W.</li>
@@ -144,8 +144,8 @@
     <p><strong>Language:</strong><br/>
     The language which needs to be used:
         <ul>
-            <li>In the output message, in case the direction is "degree to cardinal".</li>
-            <li>In the input message, in case the direction is "cardinal to degree".</li>
+            <li>In the output message, in case the direction is "degree to compass point".</li>
+            <li>In the input message, in case the direction is "compass point to degree".</li>
         </ul>
     </p>  
     <p><strong>Input field:</strong><br/>
