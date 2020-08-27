@@ -8,6 +8,12 @@ Run the following npm command in your Node-RED user directory (typically ~/.node
 npm install node-red-contrib-compass
 ```
 
+## Support my Node-RED developments
+
+Please buy my wife a coffee to keep her happy, while I am busy developing Node-RED stuff for you ...
+
+<a href="https://www.buymeacoffee.com/bartbutenaers" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy my wife a coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+
 ## Node usage
 
 The following example flow demonstrates how to convert a degree into a compass point, or a compass point in into a degree:
